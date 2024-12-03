@@ -14,20 +14,22 @@ public class GameView {
     private final TextField player1Field = new TextField();
     private final TextField player2Field = new TextField();
     private final Button startButton = new Button("Spiel starten");
+    private final Label currentPlayerLabel = new Label("Am Zug: ");
 
     public GameView(Stage stage) {
         this.stage = stage;
         VBox root = new VBox(10);
         messageArea.setEditable(false);
-        inputField.setPromptText("Spaltennummer (1-7) eingeben"); // Hinweis auf 1-basiert
+        inputField.setPromptText("Spaltennummer (1-7) eingeben");
         player1Field.setPromptText("Name Spieler 1 (o)");
         player2Field.setPromptText("Name Spieler 2 (x)");
         HBox inputBox = new HBox(10, inputField, submitButton);
 
         VBox playerInputBox = new VBox(10, player1Field, player2Field, startButton);
-        root.getChildren().addAll(playerInputBox, boardGrid, messageArea, inputBox);
+        currentPlayerLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: darkblue;");
+        root.getChildren().addAll(playerInputBox, currentPlayerLabel, boardGrid, messageArea, inputBox);
 
-        Scene scene = new Scene(root, 400, 600);
+        Scene scene = new Scene(root, 500, 700);
         stage.setScene(scene);
         stage.setTitle("Vier Gewinnt");
         stage.show();
@@ -35,13 +37,30 @@ public class GameView {
 
     public void updateBoard(char[][] board) {
         boardGrid.getChildren().clear();
+        boardGrid.setHgap(5);
+        boardGrid.setVgap(5);
+        boardGrid.setStyle("-fx-padding: 20; -fx-background-color: lightblue; -fx-border-color: navy; -fx-border-width: 3;");
+
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
-                Label cell = new Label(String.valueOf(board[row][col]));
-                cell.setStyle("-fx-border-color: black; -fx-alignment: center; -fx-min-width: 40; -fx-min-height: 40;");
+                Pane cell = new Pane();
+                cell.setPrefSize(50, 50);
+                cell.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: white;");
+
+                char stone = board[row][col];
+                if (stone == 'o') {
+                    cell.setStyle("-fx-background-color: red; -fx-border-radius: 25; -fx-background-radius: 25;");
+                } else if (stone == 'x') {
+                    cell.setStyle("-fx-background-color: yellow; -fx-border-radius: 25; -fx-background-radius: 25;");
+                }
+
                 boardGrid.add(cell, col, row);
             }
         }
+    }
+
+    public void updateCurrentPlayer(String playerName) {
+        currentPlayerLabel.setText("Am Zug: " + playerName);
     }
 
     public void showMessage(String message) {
