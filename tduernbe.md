@@ -1,4 +1,5 @@
 Ich habe geschrieben:
+
 Programmiere mir eine JAVAFX-Anwendung mit entsprechender Oberfläche, es soll das Spiel Vier Gewinnt werden, hier die Angabe, die Benutzeroberfläche ist wird später erstellt und hat den Namen "GameView.java", diese musst du nicht ausprogrammieren.
 
 
@@ -17,7 +18,12 @@ Anforderungen
     Nach jedem Spielzug muss geprüft werden, ob das Spiel gewonnen wurde. Ist dies der Fall, muss dem Gewinner des Spieles gratuliert werden.
     Außerdem muss geprüft werden, ob das Spiel unentschieden ausgegangen ist. Dies ist dann der Fall, wenn alle Spalten voll sind, und keiner der Spieler 4 Spielsteine in einer Reihe hat. Eine entsprechende Meldung muss ausgegeben werden.
 
+
 Nächster prompt:
 
-
 Das funktioniert super! bitte passe noch das Programm so an so das man seinen Namen eingeben kann und wenn jemand gewinnt eine Message erscheint und den Gewinner kürt. 
+
+
+Nächster prompt:
+
+Super, ich hätte noch  kleine Änderungen, bitte ändere das Spiel so ab, das man nicht bei 0 zu zählen beginnt sondern bei 1 und die Message funktioniert nichtso gut, kann man das eventuell mit einem Stage oder Scene machen, sodass die Message, die über den Gewinner informiert, die ganze Zeit bleibt?
