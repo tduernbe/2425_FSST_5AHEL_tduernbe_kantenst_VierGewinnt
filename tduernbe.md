@@ -17,4 +17,7 @@ Anforderungen
     Nach jedem Spielzug muss geprüft werden, ob das Spiel gewonnen wurde. Ist dies der Fall, muss dem Gewinner des Spieles gratuliert werden.
     Außerdem muss geprüft werden, ob das Spiel unentschieden ausgegangen ist. Dies ist dann der Fall, wenn alle Spalten voll sind, und keiner der Spieler 4 Spielsteine in einer Reihe hat. Eine entsprechende Meldung muss ausgegeben werden.
 
+Nächster prompt:
 
+
+Das funktioniert super! bitte passe noch das Programm so an so das man seinen Namen eingeben kann und wenn jemand gewinnt eine Message erscheint und den Gewinner kürt. 
