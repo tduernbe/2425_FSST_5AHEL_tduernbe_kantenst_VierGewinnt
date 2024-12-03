@@ -13,9 +13,22 @@ public class GameController {
     }
 
     private void initController() {
-        view.updateBoard(model.getBoard());
-        view.showMessage("Spiel gestartet! Spieler 1 (o) beginnt.");
+        view.getStartButton().setOnAction(e -> startGame());
         view.getSubmitButton().setOnAction(e -> handleInput());
+    }
+
+    private void startGame() {
+        String player1 = view.getPlayer1Field().getText().trim();
+        String player2 = view.getPlayer2Field().getText().trim();
+
+        if (player1.isEmpty() || player2.isEmpty()) {
+            view.showMessage("Bitte geben Sie die Namen beider Spieler ein.");
+            return;
+        }
+
+        model.setPlayerNames(player1, player2);
+        view.updateBoard(model.getBoard());
+        view.showMessage("Spiel gestartet! " + model.getCurrentPlayerName() + " (o) beginnt.");
     }
 
     private void handleInput() {
@@ -27,14 +40,13 @@ public class GameController {
             }
             view.updateBoard(model.getBoard());
             if (model.checkWin()) {
-                view.showMessage("Spieler " + model.getCurrentPlayer() + " gewinnt!");
-                Platform.exit();
+                view.showWinnerMessage(model.getCurrentPlayerName());
             } else if (model.isDraw()) {
                 view.showMessage("Das Spiel endet unentschieden!");
                 Platform.exit();
             } else {
                 model.switchPlayer();
-                view.showMessage("Spieler " + model.getCurrentPlayer() + " ist am Zug.");
+                view.showMessage(model.getCurrentPlayerName() + " ist am Zug.");
             }
         } catch (NumberFormatException ex) {
             view.showMessage("Bitte eine gültige Zahl eingeben.");

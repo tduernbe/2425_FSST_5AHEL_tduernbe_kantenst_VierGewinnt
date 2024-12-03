@@ -6,6 +6,7 @@ public class GameModel {
     private final int rows;
     private final int cols;
     private final char[][] board;
+    private final String[] playerNames = new String[2]; // Spieler-Namen
     private final char[] players = {'o', 'x'};
     private int currentPlayerIndex = 0;
 
@@ -18,7 +19,17 @@ public class GameModel {
         }
     }
 
+    public void setPlayerNames(String player1, String player2) {
+        playerNames[0] = player1;
+        playerNames[1] = player2;
+    }
+
+    public String getCurrentPlayerName() {
+        return playerNames[currentPlayerIndex];
+    }
+
     public boolean makeMove(int col) {
+        col -= 1; // Anpassen auf 0-basierte Indizes
         if (col < 0 || col >= cols) return false;
         for (int row = rows - 1; row >= 0; row--) {
             if (board[row][col] == ' ') {
@@ -31,7 +42,6 @@ public class GameModel {
 
     public boolean checkWin() {
         char currentPlayer = players[currentPlayerIndex];
-        // Check horizontal, vertical, and diagonal
         return checkDirection(0, 1, currentPlayer) || // Horizontal
                 checkDirection(1, 0, currentPlayer) || // Vertical
                 checkDirection(1, 1, currentPlayer) || // Diagonal /
@@ -72,9 +82,5 @@ public class GameModel {
 
     public char[][] getBoard() {
         return board;
-    }
-
-    public char getCurrentPlayer() {
-        return players[currentPlayerIndex];
     }
 }
