@@ -78,7 +78,7 @@ public class GameView {
         closeButton.setOnAction(e -> System.exit(0));
 
         layout.getChildren().addAll(winnerLabel, closeButton);
-        Scene scene = new Scene(layout, 300, 150);
+        Scene scene = new Scene(layout);
         winnerStage.setTitle("Spiel beendet");
         winnerStage.setScene(scene);
         winnerStage.show();
