@@ -7,15 +7,15 @@ public class GameModel {
     private final int cols;
     private final char[][] board;
     private final String[] playerNames = new String[2]; // Spieler-Namen
-    private final char[] players = {'o', 'x'};
-    private int currentPlayerIndex = 0;
+    private final char[] players = {'o', 'x'}; // Symbole der Spieler
+    private int currentPlayerIndex = 0; // Aktueller Spielerindex
 
     public GameModel(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         board = new char[rows][cols];
         for (char[] row : board) {
-            Arrays.fill(row, ' ');
+            Arrays.fill(row, ' '); // Leeres Spielfeld initialisieren
         }
     }
 
@@ -28,22 +28,32 @@ public class GameModel {
         return playerNames[currentPlayerIndex];
     }
 
+    /**
+     * Setzt einen Stein in der angegebenen Spalte.
+     *
+     * @param col Spaltenindex (0-basiert)
+     * @return true, wenn der Zug erfolgreich war; false, wenn die Spalte voll ist oder ungültig.
+     */
     public boolean makeMove(int col) {
-        col -= 1; // Anpassen auf 0-basierte Indizes
-        if (col < 0 || col >= cols) return false;
-        for (int row = rows - 1; row >= 0; row--) {
-            if (board[row][col] == ' ') {
-                board[row][col] = players[currentPlayerIndex];
+        if (col < 0 || col >= cols) return false; // Ungültige Spalte
+        for (int row = rows - 1; row >= 0; row--) { // Von unten nach oben durchgehen
+            if (board[row][col] == ' ') { // Erste leere Zelle finden
+                board[row][col] = players[currentPlayerIndex]; // Stein setzen
                 return true;
             }
         }
-        return false;
+        return false; // Spalte ist voll
     }
 
+    /**
+     * Überprüft, ob der aktuelle Spieler gewonnen hat.
+     *
+     * @return true, wenn der aktuelle Spieler gewonnen hat.
+     */
     public boolean checkWin() {
         char currentPlayer = players[currentPlayerIndex];
         return checkDirection(0, 1, currentPlayer) || // Horizontal
-                checkDirection(1, 0, currentPlayer) || // Vertical
+                checkDirection(1, 0, currentPlayer) || // Vertikal
                 checkDirection(1, 1, currentPlayer) || // Diagonal /
                 checkDirection(1, -1, currentPlayer);  // Diagonal \
     }
@@ -69,17 +79,30 @@ public class GameModel {
         return true;
     }
 
+    /**
+     * Überprüft, ob das Spiel unentschieden ist.
+     *
+     * @return true, wenn keine Züge mehr möglich sind.
+     */
     public boolean isDraw() {
         for (int col = 0; col < cols; col++) {
-            if (board[0][col] == ' ') return false;
+            if (board[0][col] == ' ') return false; // Mindestens eine Spalte ist nicht voll
         }
-        return true;
+        return true; // Alle Spalten sind voll
     }
 
+    /**
+     * Wechselt den aktuellen Spieler.
+     */
     public void switchPlayer() {
-        currentPlayerIndex = 1 - currentPlayerIndex;
+        currentPlayerIndex = 1 - currentPlayerIndex; // Wechsel zwischen 0 und 1
     }
 
+    /**
+     * Gibt das aktuelle Spielfeld zurück.
+     *
+     * @return 2D-Array des Spielfelds.
+     */
     public char[][] getBoard() {
         return board;
     }

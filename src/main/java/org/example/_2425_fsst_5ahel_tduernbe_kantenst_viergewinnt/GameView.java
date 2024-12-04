@@ -3,36 +3,56 @@ package org.example._2425_fsst_5ahel_tduernbe_kantenst_viergewinnt;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class GameView {
     private final Stage stage;
     private final GridPane boardGrid = new GridPane();
     private final TextArea messageArea = new TextArea();
-    private final TextField inputField = new TextField();
-    private final Button submitButton = new Button("Zug spielen");
     private final TextField player1Field = new TextField();
     private final TextField player2Field = new TextField();
     private final Button startButton = new Button("Spiel starten");
     private final Label currentPlayerLabel = new Label("Am Zug: ");
+    private final ColorPicker player1ColorPicker = new ColorPicker(Color.RED);
+    private final ColorPicker player2ColorPicker = new ColorPicker(Color.YELLOW);
+
+    private final TitledPane boardPane = new TitledPane("Spielfeld", boardGrid);
+
+    private Color player1Color = Color.RED;
+    private Color player2Color = Color.YELLOW;
 
     public GameView(Stage stage) {
         this.stage = stage;
+
         VBox root = new VBox(10);
         messageArea.setEditable(false);
-        inputField.setPromptText("Spaltennummer (1-7) eingeben");
         player1Field.setPromptText("Name Spieler 1 (o)");
         player2Field.setPromptText("Name Spieler 2 (x)");
-        HBox inputBox = new HBox(10, inputField, submitButton);
 
-        VBox playerInputBox = new VBox(10, player1Field, player2Field, startButton);
+        // Farbwähler für Spieler hinzufügen
+        HBox player1Box = new HBox(10, new Label("Farbe Spieler 1:"), player1ColorPicker, player1Field);
+        HBox player2Box = new HBox(10, new Label("Farbe Spieler 2:"), player2ColorPicker, player2Field);
+
+        VBox playerInputBox = new VBox(10, player1Box, player2Box, startButton);
         currentPlayerLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: darkblue;");
-        root.getChildren().addAll(playerInputBox, currentPlayerLabel, boardGrid, messageArea, inputBox);
 
-        Scene scene = new Scene(root, 500, 700);
+        // Spielfeld einklappbar machen
+        boardPane.setCollapsible(true);
+        boardPane.setExpanded(true);
+        boardPane.setStyle("-fx-padding: 10;");
+
+        root.getChildren().addAll(playerInputBox, currentPlayerLabel, boardPane, messageArea);
+
+        Scene scene = new Scene(root, 600, 800);
         stage.setScene(scene);
         stage.setTitle("Vier Gewinnt");
         stage.show();
+
+        // Farbwähler-Ereignisbehandlung
+        player1ColorPicker.setOnAction(e -> player1Color = player1ColorPicker.getValue());
+        player2ColorPicker.setOnAction(e -> player2Color = player2ColorPicker.getValue());
     }
 
     public void updateBoard(char[][] board) {
@@ -49,14 +69,21 @@ public class GameView {
 
                 char stone = board[row][col];
                 if (stone == 'o') {
-                    cell.setStyle("-fx-background-color: red; -fx-border-radius: 25; -fx-background-radius: 25;");
+                    cell.getChildren().add(createCircle(player1Color));
                 } else if (stone == 'x') {
-                    cell.setStyle("-fx-background-color: yellow; -fx-border-radius: 25; -fx-background-radius: 25;");
+                    cell.getChildren().add(createCircle(player2Color));
                 }
 
                 boardGrid.add(cell, col, row);
             }
         }
+    }
+
+    private Circle createCircle(Color color) {
+        Circle circle = new Circle(20, color);
+        circle.setCenterX(25);
+        circle.setCenterY(25);
+        return circle;
     }
 
     public void updateCurrentPlayer(String playerName) {
@@ -84,12 +111,8 @@ public class GameView {
         winnerStage.show();
     }
 
-    public TextField getInputField() {
-        return inputField;
-    }
-
-    public Button getSubmitButton() {
-        return submitButton;
+    public Button getStartButton() {
+        return startButton;
     }
 
     public TextField getPlayer1Field() {
@@ -100,7 +123,7 @@ public class GameView {
         return player2Field;
     }
 
-    public Button getStartButton() {
-        return startButton;
+    public GridPane getBoardGrid() {
+        return boardGrid;
     }
 }
