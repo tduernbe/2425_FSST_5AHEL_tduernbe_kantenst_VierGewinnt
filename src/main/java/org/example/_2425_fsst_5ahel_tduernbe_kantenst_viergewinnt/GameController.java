@@ -58,37 +58,6 @@ public class GameController {
         }
     }
 
-    /*private void handleColumnClick(int col) {
-        // Überprüfen, ob das Spiel gestartet ist, andernfalls starten
-        if (!gameStarted) {
-            startGame();
-        }
-
-        try {
-            // Einen Zug machen und prüfen, ob er gültig ist
-            if (!model.makeMove(col)) {
-                view.showMessage("Ungültiger Zug. Versuche es erneut.");
-                return;
-            }
-
-            view.updateBoard(model.getBoard());
-
-            // Überprüfen, ob der aktuelle Spieler gewonnen hat
-            if (model.checkWin()) {
-                view.showWinnerMessage(model.getCurrentPlayerName());
-            } else if (model.isDraw()) {
-                view.showMessage("Das Spiel endet unentschieden!");
-                Platform.exit();  // Beenden, falls unentschieden
-            } else {
-                // Spieler wechseln
-                model.switchPlayer();
-                view.showMessage(model.getCurrentPlayerName() + " ist am Zug.");
-            }
-        } catch (Exception ex) {
-            view.showMessage("Ein Fehler ist aufgetreten: " + ex.getMessage());
-        }
-    }*/
-
     private void handleColumnClick(int col) {
         if (!gameStarted) {
             view.showMessage("Bitte starten Sie zuerst das Spiel, bevor Sie einen Zug machen.");
