@@ -58,7 +58,7 @@ public class GameController {
         }
     }
 
-    private void handleColumnClick(int col) {
+    /*private void handleColumnClick(int col) {
         // Überprüfen, ob das Spiel gestartet ist, andernfalls starten
         if (!gameStarted) {
             startGame();
@@ -81,6 +81,38 @@ public class GameController {
                 Platform.exit();  // Beenden, falls unentschieden
             } else {
                 // Spieler wechseln
+                model.switchPlayer();
+                view.showMessage(model.getCurrentPlayerName() + " ist am Zug.");
+            }
+        } catch (Exception ex) {
+            view.showMessage("Ein Fehler ist aufgetreten: " + ex.getMessage());
+        }
+    }*/
+
+    private void handleColumnClick(int col) {
+        if (!gameStarted) {
+            view.showMessage("Bitte starten Sie zuerst das Spiel, bevor Sie einen Zug machen.");
+            return;
+        }
+
+        try {
+            if (!model.makeMove(col)) {
+                view.showMessage("Ungültiger Zug. Versuche es erneut.");
+                return;
+            }
+
+            // Nach dem Zug das Board aktualisieren
+            view.updateBoard(model.getBoard());
+
+            // Da das Board neu aufgebaut wurde, müssen wir die Click-Handler erneut setzen
+            enableColumnClickHandlers();
+
+            if (model.checkWin()) {
+                view.showWinnerMessage(model.getCurrentPlayerName());
+            } else if (model.isDraw()) {
+                view.showMessage("Das Spiel endet unentschieden!");
+                Platform.exit();
+            } else {
                 model.switchPlayer();
                 view.showMessage(model.getCurrentPlayerName() + " ist am Zug.");
             }
