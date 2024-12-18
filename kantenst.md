@@ -149,3 +149,5 @@ private int currentPlayerIndex = 0;
         return players[currentPlayerIndex];
     }
 }
+
+test
