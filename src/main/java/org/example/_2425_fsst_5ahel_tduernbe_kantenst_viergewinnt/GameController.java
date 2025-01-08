@@ -28,6 +28,7 @@ public class GameController {
 
         if (player1.isEmpty() || player2.isEmpty()) {
             view.showMessage("Bitte geben Sie die Namen beider Spieler ein.");
+            System.out.println("Bitte geben Sie die Namen beider Spieler ein.");
             return;
         }
 
