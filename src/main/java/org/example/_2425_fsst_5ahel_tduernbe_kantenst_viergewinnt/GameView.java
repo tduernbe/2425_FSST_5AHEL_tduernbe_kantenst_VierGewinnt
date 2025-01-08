@@ -14,7 +14,6 @@ public class GameView {
     private final TextField player1Field = new TextField();
     private final TextField player2Field = new TextField();
     private final Button startButton = new Button("Spiel starten");
-    private final Label currentPlayerLabel = new Label("Am Zug: ");
     private final ColorPicker player1ColorPicker = new ColorPicker(Color.RED);
     private final ColorPicker player2ColorPicker = new ColorPicker(Color.YELLOW);
 
@@ -36,14 +35,19 @@ public class GameView {
         HBox player2Box = new HBox(10, new Label("Farbe Spieler 2:"), player2ColorPicker, player2Field);
 
         VBox playerInputBox = new VBox(10, player1Box, player2Box, startButton);
-        currentPlayerLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: darkblue;");
+
+        // Neuen TitledPane für die Spielereinstellungen erstellen
+        TitledPane playerSettingsPane = new TitledPane("Spielereinstellungen", playerInputBox);
+        playerSettingsPane.setCollapsible(true);
+        playerSettingsPane.setExpanded(true); // Standardmäßig aufgeklappt
 
         // Spielfeld einklappbar machen
         boardPane.setCollapsible(true);
         boardPane.setExpanded(true);
         boardPane.setStyle("-fx-padding: 10;");
 
-        root.getChildren().addAll(playerInputBox, currentPlayerLabel, boardPane, messageArea);
+        // Root-Layout
+        root.getChildren().addAll(playerSettingsPane, boardPane, messageArea);
 
         Scene scene = new Scene(root, 600, 800);
         stage.setScene(scene);
@@ -86,10 +90,6 @@ public class GameView {
         return circle;
     }
 
-    public void updateCurrentPlayer(String playerName) {
-        currentPlayerLabel.setText("Am Zug: " + playerName);
-    }
-
     public void showMessage(String message) {
         messageArea.appendText(message + "\n");
     }
@@ -127,3 +127,5 @@ public class GameView {
         return boardGrid;
     }
 }
+
+
