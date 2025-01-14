@@ -15,3 +15,10 @@ Bot soll implemetiert werden, wenn nur ein Spieler spielt. --> Dürnberger
   * Die letzten Einstellungen (Settings) müssen beim Schließen des Programms gespeichert werden
   * gespeicherte Einstellungen müssen beim Starten des Programms wieder geladen werden
   * .class Dateien dürfen nicht mehr committed werden /ok
+
+## 14.1.2025 - Wittner:
+  * Gelöste Aufgaben mit [name] markieren
+  * Kein Commit von Dürnberger?!!!
+  * "HelloApplication" umbenennen in "VierGewinntApplication"
+  * Nach einem Sieg soll das Spiel auch wieder neu gestartet werden können
+  * In den .md-Dateien immer das Datum angeben
