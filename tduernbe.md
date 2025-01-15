@@ -27,3 +27,7 @@ Das funktioniert super! bitte passe noch das Programm so an so das man seinen Na
 Nächster prompt:
 
 Super, ich hätte noch  kleine Änderungen, bitte ändere das Spiel so ab, das man nicht bei 0 zu zählen beginnt sondern bei 1 und die Message funktioniert nichtso gut, kann man das eventuell mit einem Stage oder Scene machen, sodass die Message, die über den Gewinner informiert, die ganze Zeit bleibt?
+
+
+
+An KI BOT gescheitert, fehlende Kompetenz 

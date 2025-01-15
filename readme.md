@@ -12,9 +12,11 @@ Bot soll implemetiert werden, wenn nur ein Spieler spielt. --> Dürnberger
   * Werden keine Spielernamen eingetragen, wird im "Log" eine Fehlermeldung angezeigt, dass muss in einem Dialog angezeigt werden / fertig
   * Anpassen der Größe, sodass das Spielfeld gut reinpasst / fertig 
   * Wenn ein Spielzug nicht möglich ist, muss ein Warnton abgespielt werden /fertig kann aber nicht geprüft werden
-  * Die letzten Einstellungen (Settings) müssen beim Schließen des Programms gespeichert werden
-  * gespeicherte Einstellungen müssen beim Starten des Programms wieder geladen werden
+  * Die letzten Einstellungen (Settings) müssen beim Schließen des Programms gespeichert werden [Dürnberger]
+  * gespeicherte Einstellungen müssen beim Starten des Programms wieder geladen werden [Dürnberger]
   * .class Dateien dürfen nicht mehr committed werden /ok
+
+An KI BOT gescheitert, fehlende Kompetenz [Dürnberger]
 
 ## 14.1.2025 - Wittner:
   * Gelöste Aufgaben mit [name] markieren
