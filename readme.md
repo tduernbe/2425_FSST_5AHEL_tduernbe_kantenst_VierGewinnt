@@ -1,9 +1,11 @@
-03.12.2024
+# README 4-Gewinnt
+
+## 03.12.2024
 
 Vier gewinnt Grundfunktionen ausprogrammieren
 
 
-18.12.2024
+## 18.12.2024
 
 Farbe soll auswählbar sein --> Antensteiner
 
