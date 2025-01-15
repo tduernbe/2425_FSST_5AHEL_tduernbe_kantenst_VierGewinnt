@@ -2,7 +2,7 @@
 
 ## 03.12.2024
 
-Vier gewinnt Grundfunktionen ausprogrammieren
+**Vier gewinnt Grundfunktionen ausprogrammieren**
 
 
 ## 18.12.2024
