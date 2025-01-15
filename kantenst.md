@@ -150,4 +150,4 @@ private int currentPlayerIndex = 0;
     }
 }
 
-test
+Mit welcher Funktion kann ein Teil der VBOX einklappbar werden?

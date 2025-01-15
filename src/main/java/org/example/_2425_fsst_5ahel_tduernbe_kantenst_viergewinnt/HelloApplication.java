@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
+        primaryStage.setWidth(450); // Breite
+        primaryStage.setHeight(900); // Höhe
         GameModel model = new GameModel(6, 7);
         GameView view = new GameView(primaryStage);
         new GameController(model, view);

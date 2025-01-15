@@ -3,11 +3,12 @@ package org.example._2425_fsst_5ahel_tduernbe_kantenst_viergewinnt;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import java.awt.Toolkit;
 
 public class GameController {
     private final GameModel model;
     private final GameView view;
-    private boolean gameStarted = false;  // Spielstatus, ob das Spiel bereits gestartet ist
+    private boolean gameStarted = false;
 
     public GameController(GameModel model, GameView view) {
         this.model = model;
@@ -16,13 +17,11 @@ public class GameController {
     }
 
     private void initController() {
-        // Der Start-Button bleibt aktiv, aber wir starten das Spiel, wenn er gedrückt wird
         view.getStartButton().setOnAction(e -> startGame());
-        view.updateBoard(model.getBoard()); // Initiales Board setzen
+        view.updateBoard(model.getBoard());
     }
 
     private void startGame() {
-        // Überprüfen, ob beide Spielernamen eingegeben wurden
         String player1 = view.getPlayer1Field().getText().trim();
         String player2 = view.getPlayer2Field().getText().trim();
 
@@ -31,26 +30,21 @@ public class GameController {
             return;
         }
 
-        // Setzen der Spielernamen
         model.setPlayerNames(player1, player2);
         view.updateBoard(model.getBoard());
         view.showMessage("Spiel gestartet! " + model.getCurrentPlayerName() + " (o) beginnt.");
-
-        // Spielstart abgeschlossen, daher erlauben wir Klicks für Züge
         gameStarted = true;
-        enableColumnClickHandlers(); // Klick-Handler für Spalten setzen
+        enableColumnClickHandlers();
     }
 
     private void enableColumnClickHandlers() {
-        // Entfernen der alten Klick-Handler (falls vorhanden)
         for (Node node : view.getBoardGrid().getChildren()) {
             node.setOnMouseClicked(null);
         }
 
-        // Setzen der neuen Klick-Handler, wenn das Spiel gestartet wurde
         if (gameStarted) {
             for (int col = 0; col < model.getBoard()[0].length; col++) {
-                int column = col; // Lokale Kopie für Lambda
+                int column = col;
                 view.getBoardGrid().getChildren()
                         .filtered(node -> GridPane.getColumnIndex(node) == column)
                         .forEach(cell -> cell.setOnMouseClicked(e -> handleColumnClick(column)));
@@ -66,14 +60,12 @@ public class GameController {
 
         try {
             if (!model.makeMove(col)) {
+                playErrorSound(); // Warnton
                 view.showMessage("Ungültiger Zug. Versuche es erneut.");
                 return;
             }
 
-            // Nach dem Zug das Board aktualisieren
             view.updateBoard(model.getBoard());
-
-            // Da das Board neu aufgebaut wurde, müssen wir die Click-Handler erneut setzen
             enableColumnClickHandlers();
 
             if (model.checkWin()) {
@@ -89,6 +81,9 @@ public class GameController {
             view.showMessage("Ein Fehler ist aufgetreten: " + ex.getMessage());
         }
     }
+
+    private void playErrorSound() {
+        Toolkit.getDefaultToolkit().beep();
+    }
 }
-// Test2
 
