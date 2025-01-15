@@ -34,6 +34,7 @@ public class GameView {
         HBox player1Box = new HBox(10, new Label("Farbe Spieler 1:"), player1ColorPicker, player1Field);
         HBox player2Box = new HBox(10, new Label("Farbe Spieler 2:"), player2ColorPicker, player2Field);
 
+
         VBox playerInputBox = new VBox(10, player1Box, player2Box, startButton);
 
         // Neuen TitledPane für die Spielereinstellungen erstellen

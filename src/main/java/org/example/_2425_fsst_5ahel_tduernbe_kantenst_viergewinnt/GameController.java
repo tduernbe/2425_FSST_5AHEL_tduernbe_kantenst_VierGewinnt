@@ -7,8 +7,7 @@ import javafx.scene.layout.GridPane;
 public class GameController {
     private final GameModel model;
     private final GameView view;
-    private boolean gameStarted = false; // Status, ob das Spiel gestartet wurde
-    private MinimaxAI ai; // KI-Instanz
+    private boolean gameStarted = false;  // Spielstatus, ob das Spiel bereits gestartet ist
 
     public GameController(GameModel model, GameView view) {
         this.model = model;
@@ -17,8 +16,9 @@ public class GameController {
     }
 
     private void initController() {
+        // Der Start-Button bleibt aktiv, aber wir starten das Spiel, wenn er gedrückt wird
         view.getStartButton().setOnAction(e -> startGame());
-        view.updateBoard(model.getBoard()); // Spielfeld initialisieren
+        view.updateBoard(model.getBoard()); // Initiales Board setzen
     }
 
     private void startGame() {
@@ -31,27 +31,23 @@ public class GameController {
             return;
         }
 
-        // Spielernamen setzen
+        // Setzen der Spielernamen
         model.setPlayerNames(player1, player2);
-
-        // KI-Instanz erstellen (z. B. Spieler 2 ist die KI, die 'x' spielt)
-        ai = new MinimaxAI('x', 'o');
-
         view.updateBoard(model.getBoard());
         view.showMessage("Spiel gestartet! " + model.getCurrentPlayerName() + " (o) beginnt.");
 
-        // Spielstart
+        // Spielstart abgeschlossen, daher erlauben wir Klicks für Züge
         gameStarted = true;
-        enableColumnClickHandlers();
+        enableColumnClickHandlers(); // Klick-Handler für Spalten setzen
     }
 
     private void enableColumnClickHandlers() {
-        // Alte Klick-Handler entfernen
+        // Entfernen der alten Klick-Handler (falls vorhanden)
         for (Node node : view.getBoardGrid().getChildren()) {
             node.setOnMouseClicked(null);
         }
 
-        // Neue Klick-Handler setzen, wenn das Spiel gestartet wurde
+        // Setzen der neuen Klick-Handler, wenn das Spiel gestartet wurde
         if (gameStarted) {
             for (int col = 0; col < model.getBoard()[0].length; col++) {
                 int column = col; // Lokale Kopie für Lambda
@@ -64,48 +60,35 @@ public class GameController {
 
     private void handleColumnClick(int col) {
         if (!gameStarted) {
-            view.showMessage("Bitte starten Sie zuerst das Spiel.");
+            view.showMessage("Bitte starten Sie zuerst das Spiel, bevor Sie einen Zug machen.");
             return;
         }
 
-        if (!model.makeMove(col)) {
-            view.showMessage("Ungültiger Zug. Versuchen Sie es erneut.");
-            return;
-        }
+        try {
+            if (!model.makeMove(col)) {
+                view.showMessage("Ungültiger Zug. Versuche es erneut.");
+                return;
+            }
 
-        processMove();
-    }
+            // Nach dem Zug das Board aktualisieren
+            view.updateBoard(model.getBoard());
 
-    private void processMove() {
-        // Spielfeld aktualisieren
-        view.updateBoard(model.getBoard());
-        enableColumnClickHandlers();
+            // Da das Board neu aufgebaut wurde, müssen wir die Click-Handler erneut setzen
+            enableColumnClickHandlers();
 
-        // Sieg oder Unentschieden überprüfen
-        if (model.checkWin()) {
-            view.showWinnerMessage(model.getCurrentPlayerName());
-            gameStarted = false; // Spiel beenden
-            return;
-        }
-
-        if (model.isDraw()) {
-            view.showMessage("Das Spiel endet unentschieden!");
-            Platform.exit();
-            return;
-        }
-
-        // Spieler wechseln
-        model.switchPlayer();
-
-        if (model.getCurrentPlayerName().equals("KI")) {
-            // KI-Zug
-            int bestMove = ai.findBestMove(model.getBoard());
-            model.makeMove(bestMove);
-            view.showMessage("KI hat einen Zug in Spalte " + (bestMove + 1) + " gemacht.");
-            processMove();
-        } else {
-            // Menschlicher Spieler ist am Zug
-            view.showMessage(model.getCurrentPlayerName() + " ist am Zug.");
+            if (model.checkWin()) {
+                view.showWinnerMessage(model.getCurrentPlayerName());
+            } else if (model.isDraw()) {
+                view.showMessage("Das Spiel endet unentschieden!");
+                Platform.exit();
+            } else {
+                model.switchPlayer();
+                view.showMessage(model.getCurrentPlayerName() + " ist am Zug.");
+            }
+        } catch (Exception ex) {
+            view.showMessage("Ein Fehler ist aufgetreten: " + ex.getMessage());
         }
     }
 }
+// Test2
+
