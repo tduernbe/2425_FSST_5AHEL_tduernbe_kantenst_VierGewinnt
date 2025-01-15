@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.example._2425_fsst_5ahel_tduernbe_kantenst_viergewinnt/org.example._2425_fsst_5ahel_tduernbe_kantenst_viergewinnt.HelloApplication
+                                org.example._2425_fsst_5ahel_tduernbe_kantenst_viergewinnt/org.example._2425_fsst_5ahel_tduernbe_kantenst_viergewinnt.VierGewinntApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
