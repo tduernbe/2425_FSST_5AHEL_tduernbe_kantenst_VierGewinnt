@@ -21,6 +21,6 @@ An KI BOT gescheitert, fehlende Kompetenz [Dürnberger]
 ## 14.1.2025 - Wittner:
   * Gelöste Aufgaben mit [name] markieren
   * Kein Commit von Dürnberger?!!!
-  * "HelloApplication" umbenennen in "VierGewinntApplication"
+  * "HelloApplication" umbenennen in "VierGewinntApplication" /fertig
   * Nach einem Sieg soll das Spiel auch wieder neu gestartet werden können
   * In den .md-Dateien immer das Datum angeben
