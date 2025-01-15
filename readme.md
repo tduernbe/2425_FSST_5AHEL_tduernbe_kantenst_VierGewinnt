@@ -32,3 +32,5 @@ KI BOT [Dürnberger]
   * Nach einem Sieg soll das Spiel auch wieder neu gestartet werden können  /fertig [Antensteiner]
   * In den .md-Dateien immer das Datum angeben  /ok  [Dürnberger]
 
+test1
+
